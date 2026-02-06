@@ -1,0 +1,823 @@
+/* ===== ADVANCED ANIMATIONS ===== */
+
+/* Button Press Animation */
+.btn:active {
+    animation: press 0.2s ease;
+}
+
+@keyframes press {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(2px) scale(0.97);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Button Ripple Effect */
+.btn.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn.ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.btn.ripple:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+/* Button Glow Effect */
+.btn.glow {
+    position: relative;
+    overflow: visible;
+}
+
+.btn.glow::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        var(--primary-color), 
+        var(--accent-color), 
+        var(--primary-color));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    animation: glow 2s linear infinite;
+    background-size: 400% 400%;
+}
+
+.btn.glow:hover::before {
+    opacity: 1;
+}
+
+@keyframes glow {
+    0%, 100% {
+        opacity: 0.5;
+        background-position: 0% 50%;
+    }
+    50% {
+        opacity: 1;
+        background-position: 100% 50%;
+    }
+}
+
+/* Number Entry Animation */
+@keyframes numberEntry {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.btn-number:active .btn-content {
+    animation: numberEntry 0.3s ease;
+}
+
+/* Operator Entry Animation */
+@keyframes operatorEntry {
+    0% {
+        transform: rotate(0deg) scale(0.8);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.btn-operator:active .btn-content {
+    animation: operatorEntry 0.4s ease;
+}
+
+/* Equals Button Animation */
+.btn-equals.pulse {
+    animation: equalsPulse 2s infinite;
+}
+
+@keyframes equalsPulse {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(114, 9, 183, 0.4);
+    }
+    50% {
+        box-shadow: 0 6px 30px rgba(114, 9, 183, 0.8);
+    }
+}
+
+/* Display Update Animation */
+@keyframes displayUpdate {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.current-display.updated {
+    animation: displayUpdate 0.3s ease;
+}
+
+/* Success Calculation Animation */
+@keyframes successGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px transparent;
+    }
+    50% {
+        text-shadow: 0 0 20px var(--success-color);
+    }
+}
+
+.success-calculation {
+    animation: successGlow 1s ease;
+}
+
+/* Error Animation */
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.error {
+    animation: errorShake 0.5s ease;
+    color: var(--danger-color) !important;
+}
+
+/* Memory Operation Animation */
+@keyframes memoryFlash {
+    0%, 100% {
+        background: var(--success-color);
+        color: white;
+        transform: scale(1);
+    }
+    50% {
+        background: white;
+        color: var(--success-color);
+        transform: scale(1.1);
+    }
+}
+
+.btn-memory.active {
+    animation: memoryFlash 0.5s ease;
+}
+
+/* Mode Switch Animation */
+@keyframes modeSwitch {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.mode-tab.active {
+    animation: modeSwitch 0.3s ease;
+}
+
+/* History Item Entry */
+@keyframes historyEntry {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.history-item.new {
+    animation: historyEntry 0.4s ease;
+}
+
+/* Settings Panel Animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.settings-panel.active {
+    animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Overlay Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        visibility: hidden;
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.settings-overlay.active {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Theme Transition Animation */
+@keyframes themeFade {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.theme-changing {
+    animation: themeFade 0.5s ease;
+}
+
+/* Typewriter Animation for Display */
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.typewriter .current-display {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 0.5s steps(40, end);
+}
+
+/* Button Hover Glow */
+@keyframes buttonGlow {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(67, 97, 238, 0.1);
+    }
+    50% {
+        box-shadow: 0 6px 25px rgba(67, 97, 238, 0.3);
+    }
+}
+
+.btn:hover {
+    animation: buttonGlow 1.5s infinite;
+}
+
+/* Cursor Blink Animation */
+@keyframes blink {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.2; }
+}
+
+.display-cursor {
+    animation: blink 1.2s infinite;
+}
+
+/* Sound Wave Animation */
+@keyframes soundWave {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.btn-icon.sound-playing::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(67, 97, 238, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    animation: soundWave 0.5s ease-out;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Calculation Count Increment */
+@keyframes countIncrement {
+    0% {
+        transform: scale(1);
+        color: var(--text-primary);
+    }
+    50% {
+        transform: scale(1.2);
+        color: var(--primary-color);
+    }
+    100% {
+        transform: scale(1);
+        color: var(--text-primary);
+    }
+}
+
+.status-item.updating span {
+    animation: countIncrement 0.5s ease;
+}
+
+/* Smooth transitions for calculator modes */
+.calculator-buttons {
+    transition: all 0.3s ease;
+}
+
+/* Prevent animation on initial load */
+.calculator-buttons:not(.active) {
+    animation: none;
+}
+
+/* Add focus states for accessibility */
+.btn:focus,
+.btn-icon:focus,
+.mode-tab:focus,
+.theme-card:focus,
+.converter-select:focus,
+.unit-select:focus,
+input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+.btn,
+.btn-icon,
+.mode-tab,
+.theme-card,
+.converter-select,
+.unit-select,
+input,
+select {
+    transition: all var(--transition-fast);
+}
+
+/* Loading animation for converter */
+.converter-loading {
+    position: relative;
+}
+
+.converter-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Shimmer effect for empty states */
+@keyframes shimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.empty-history {
+    background: linear-gradient(to right, var(--bg-tertiary) 8%, var(--bg-secondary) 18%, var(--bg-tertiary) 33%);
+    background-size: 800px 104px;
+    animation: shimmer 1.5s infinite linear;
+}
+
+/* Bounce animation for equals button */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.btn-equals:hover {
+    animation: bounce 1s;
+}
+
+/* Flip animation for converter swap */
+@keyframes flip {
+    0% {
+        transform: rotateY(0);
+    }
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+.converter-swap.animating {
+    animation: flip 0.6s ease;
+}
+
+/* Gradient shift animation for backgrounds */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.bg-glow {
+    animation: gradientShift 15s ease infinite;
+    background-size: 200% 200%;
+}
+
+/* Pulsing effect for active elements */
+@keyframes pulseActive {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(67, 97, 238, 0);
+    }
+}
+
+.btn-icon.active {
+    animation: pulseActive 2s infinite;
+}
+
+/* Slide in from left */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.history-item {
+    animation: slideInLeft 0.3s ease;
+}
+
+/* Fade in up */
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.calculator-container {
+    animation: fadeInUp 0.6s ease;
+}
+
+/* Rotate animation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-icon.loading i {
+    animation: rotate 1s linear infinite;
+}
+
+/* Scale in */
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.mode-indicator {
+    animation: scaleIn 0.3s ease;
+}
+
+/* Wobble effect for errors */
+@keyframes wobble {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    15% {
+        transform: translateX(-25%);
+    }
+    30% {
+        transform: translateX(20%);
+    }
+    45% {
+        transform: translateX(-15%);
+    }
+    60% {
+        transform: translateX(10%);
+    }
+    75% {
+        transform: translateX(-5%);
+    }
+}
+
+.error-shake {
+    animation: wobble 0.8s ease;
+}
+
+/* Floating animation */
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.logo-icon {
+    animation: floating 3s ease-in-out infinite;
+}
+
+/* Color cycle animation for gradients */
+@keyframes colorCycle {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-animate {
+    background: linear-gradient(45deg, 
+        var(--primary-color), 
+        var(--accent-color), 
+        var(--success-color), 
+        var(--primary-color));
+    background-size: 400% 400%;
+    animation: colorCycle 5s ease infinite;
+}
+
+/* Quick pop animation */
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn:active {
+    animation: pop 0.2s ease;
+}
+
+/* Text reveal animation */
+@keyframes textReveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+.text-reveal {
+    animation: textReveal 0.8s ease forwards;
+}
+
+/* Card hover lift animation */
+@keyframes cardLift {
+    from {
+        transform: translateY(0);
+        box-shadow: var(--shadow-md);
+    }
+    to {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+}
+
+.history-item:hover {
+    animation: cardLift 0.3s ease forwards;
+}
+
+/* Smooth scroll animation */
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* Attention seeker animation */
+@keyframes attention {
+    0%, 100% {
+        transform: scale(1);
+    }
+    10%, 30% {
+        transform: scale(1.1);
+    }
+    20%, 40% {
+        transform: scale(0.9);
+    }
+}
+
+.attention {
+    animation: attention 1s ease;
+}
+
+/* Glitch text effect */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+.glitch-text {
+    animation: glitch 0.5s linear infinite;
+}
+
+/* Vibration effect for mobile */
+@keyframes vibrate {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+.vibrate {
+    animation: vibrate 0.3s linear infinite;
+}
+
+/* Load bar animation */
+@keyframes loadBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.load-bar {
+    animation: loadBar 2s ease-in-out;
+}
+
+/* Matrix rain effect for background */
+@keyframes matrixRain {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100vh;
+    }
+}
+
+.matrix-bg {
+    background: linear-gradient(transparent 95%, rgba(67, 97, 238, 0.1) 100%);
+    background-size: 4px 4px;
+    animation: matrixRain 20s linear infinite;
+}
+
+/* Color change animation */
+@keyframes colorChange {
+    0% {
+        color: var(--primary-color);
+    }
+    25% {
+        color: var(--accent-color);
+    }
+    50% {
+        color: var(--success-color);
+    }
+    75% {
+        color: var(--warning-color);
+    }
+    100% {
+        color: var(--primary-color);
+    }
+}
+
+.color-change {
+    animation: colorChange 5s linear infinite;
+}

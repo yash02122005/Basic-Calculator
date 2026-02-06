@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+    <html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdvCalc | Advanced Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="bg-grid"></div>
+        <div class="bg-glow"></div>
+    </div>
+
+    <!-- Main Calculator -->
+    <div class="calculator-container">
+        <!-- Header -->
+        <div class="calculator-header">
+            <div class="header-brand">
+                <div class="logo">
+                    <i class="fas fa-calculator logo-icon"></i>
+                    <span class="logo-text">U<span class="logo-accent">M</span></span>
+                </div>
+                <div class="mode-indicator">
+                    <i class="fas fa-calculator"></i>
+                    <span id="currentMode">Standard</span>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <button class="btn-icon sound-toggle" id="soundToggle">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="btn-icon theme-toggle" id="themeToggle">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button class="btn-icon menu-toggle" id="menuToggle">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Display -->
+        <div class="calculator-display">
+            <div class="display-top">
+                <div class="history-preview" id="historyPreview"></div>
+                <div class="memory-indicator">
+                    <i class="fas fa-sd-card"></i>
+                    <span id="memoryValue">0</span>
+                </div>
+            </div>
+            <div class="current-display" id="currentDisplay">0</div>
+            <div class="display-cursor"></div>
+        </div>
+
+        <!-- Calculator Modes Tabs -->
+        <div class="mode-tabs">
+            <button class="mode-tab active" data-mode="standard">
+                <i class="fas fa-calculator"></i>
+                <span>Standard</span>
+            </button>
+            <button class="mode-tab" data-mode="scientific">
+                <i class="fas fa-atom"></i>
+                <span>Scientific</span>
+            </button>
+            <button class="mode-tab" data-mode="converter">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Converter</span>
+            </button>
+            <button class="mode-tab" data-mode="history">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </button>
+        </div>
+
+        <!-- Standard Calculator -->
+        <div class="calculator-buttons active" id="standardCalculator">
+            <div class="button-row memory-row">
+                <button class="btn btn-memory" data-action="mc">
+                    <span class="btn-content">MC</span>
+                    <span class="btn-tooltip">Memory Clear</span>
+                </button>
+                <button class="btn btn-memory" data-action="mr">
+                    <span class="btn-content">MR</span>
+                    <span class="btn-tooltip">Memory Recall</span>
+                </button>
+                <button class="btn btn-memory" data-action="m+">
+                    <span class="btn-content">M+</span>
+                    <span class="btn-tooltip">Memory Add</span>
+                </button>
+                <button class="btn btn-memory" data-action="m-">
+                    <span class="btn-content">M-</span>
+                    <span class="btn-tooltip">Memory Subtract</span>
+                </button>
+                <button class="btn btn-clear" data-action="clear-all">
+                    <span class="btn-content">AC</span>
+                    <span class="btn-tooltip">All Clear</span>
+                </button>
+            </div>
+
+            <div class="buttons-grid">
+                <!-- Row 1 -->
+                <button class="btn btn-secondary" data-action="clear-entry">
+                    <span class="btn-content">CE</span>
+                    <span class="btn-tooltip">Clear Entry</span>
+                </button>
+                <button class="btn btn-secondary" data-action="backspace">
+                    <span class="btn-content"><i class="fas fa-backspace"></i></span>
+                    <span class="btn-tooltip">Backspace</span>
+                </button>
+                <button class="btn btn-operator" data-operator="/">
+                    <span class="btn-content">÷</span>
+                </button>
+                <button class="btn btn-function" data-func="sqrt">
+                    <span class="btn-content">√x</span>
+                    <span class="btn-tooltip">Square Root</span>
+                </button>
+                <button class="btn btn-function" data-func="percent">
+                    <span class="btn-content">%</span>
+                    <span class="btn-tooltip">Percentage</span>
+                </button>
+
+                <!-- Row 2 -->
+                <button class="btn btn-number" data-number="7">
+                    <span class="btn-content">7</span>
+                </button>
+                <button class="btn btn-number" data-number="8">
+                    <span class="btn-content">8</span>
+                </button>
+                <button class="btn btn-number" data-number="9">
+                    <span class="btn-content">9</span>
+                </button>
+                <button class="btn btn-operator" data-operator="*">
+                    <span class="btn-content">×</span>
+                </button>
+                <button class="btn btn-function" data-func="power">
+                    <span class="btn-content">x²</span>
+                    <span class="btn-tooltip">Square</span>
+                </button>
+
+                <!-- Row 3 -->
+                <button class="btn btn-number" data-number="4">
+                    <span class="btn-content">4</span>
+                </button>
+                <button class="btn btn-number" data-number="5">
+                    <span class="btn-content">5</span>
+                </button>
+                <button class="btn btn-number" data-number="6">
+                    <span class="btn-content">6</span>
+                </button>
+                <button class="btn btn-operator" data-operator="-">
+                    <span class="btn-content">−</span>
+                </button>
+                <button class="btn btn-function" data-func="inverse">
+                    <span class="btn-content">¹⁄x</span>
+                    <span class="btn-tooltip">Reciprocal</span>
+                </button>
+
+                <!-- Row 4 -->
+                <button class="btn btn-number" data-number="1">
+                    <span class="btn-content">1</span>
+                </button>
+                <button class="btn btn-number" data-number="2">
+                    <span class="btn-content">2</span>
+                </button>
+                <button class="btn btn-number" data-number="3">
+                    <span class="btn-content">3</span>
+                </button>
+                <button class="btn btn-operator" data-operator="+">
+                    <span class="btn-content">+</span>
+                </button>
+                <button class="btn btn-function" data-func="pi">
+                    <span class="btn-content">π</span>
+                    <span class="btn-tooltip">Pi (3.14159)</span>
+                </button>
+
+                <!-- Row 5 -->
+                <button class="btn btn-secondary" data-action="plus-minus">
+                    <span class="btn-content">±</span>
+                    <span class="btn-tooltip">Change Sign</span>
+                </button>
+                <button class="btn btn-number" data-number="0">
+                    <span class="btn-content">0</span>
+                </button>
+                <button class="btn btn-number" data-number=".">
+                    <span class="btn-content">.</span>
+                </button>
+                <button class="btn btn-equals" id="equalsBtn">
+                    <span class="btn-content">=</span>
+                </button>
+                <button class="btn btn-function" data-func="factorial">
+                    <span class="btn-content">x!</span>
+                    <span class="btn-tooltip">Factorial</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Scientific Calculator -->
+        <div class="calculator-buttons" id="scientificCalculator">
+            <div class="scientific-grid">
+                <!-- Trigonometric Functions -->
+                <button class="btn btn-scientific" data-func="sin">
+                    <span class="btn-content">sin</span>
+                </button>
+                <button class="btn btn-scientific" data-func="cos">
+                    <span class="btn-content">cos</span>
+                </button>
+                <button class="btn btn-scientific" data-func="tan">
+                    <span class="btn-content">tan</span>
+                </button>
+                <button class="btn btn-scientific" data-func="asin">
+                    <span class="btn-content">sin⁻¹</span>
+                </button>
+                <button class="btn btn-scientific" data-func="acos">
+                    <span class="btn-content">cos⁻¹</span>
+                </button>
+                <button class="btn btn-scientific" data-func="atan">
+                    <span class="btn-content">tan⁻¹</span>
+                </button>
+
+                <!-- Logarithmic Functions -->
+                <button class="btn btn-scientific" data-func="log">
+                    <span class="btn-content">log</span>
+                </button>
+                <button class="btn btn-scientific" data-func="ln">
+                    <span class="btn-content">ln</span>
+                </button>
+                <button class="btn btn-scientific" data-func="exp">
+                    <span class="btn-content">eˣ</span>
+                </button>
+                <button class="btn btn-scientific" data-func="log2">
+                    <span class="btn-content">log₂</span>
+                </button>
+                <button class="btn btn-scientific" data-func="pow10">
+                    <span class="btn-content">10ˣ</span>
+                </button>
+
+                <!-- Advanced Functions -->
+                <button class="btn btn-scientific" data-func="abs">
+                    <span class="btn-content">|x|</span>
+                </button>
+                <button class="btn btn-scientific" data-func="floor">
+                    <span class="btn-content">⌊x⌋</span>
+                </button>
+                <button class="btn btn-scientific" data-func="ceil">
+                    <span class="btn-content">⌈x⌉</span>
+                </button>
+                <button class="btn btn-scientific" data-func="round">
+                    <span class="btn-content">round</span>
+                </button>
+                <button class="btn btn-scientific" data-func="rand">
+                    <span class="btn-content">RAND</span>
+                </button>
+
+                <!-- Constants -->
+                <button class="btn btn-scientific" data-func="e">
+                    <span class="btn-content">e</span>
+                </button>
+                <button class="btn btn-scientific" data-func="deg">
+                    <span class="btn-content">DEG</span>
+                </button>
+                <button class="btn btn-scientific" data-func="rad">
+                    <span class="btn-content">RAD</span>
+                </button>
+                <button class="btn btn-scientific" data-func="hypot">
+                    <span class="btn-content">hypot</span>
+                </button>
+                <button class="btn btn-scientific" data-func="mod">
+                    <span class="btn-content">mod</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Unit Converter -->
+        <div class="calculator-buttons" id="converterCalculator">
+            <div class="converter-container">
+                <div class="converter-header">
+                    <h3><i class="fas fa-exchange-alt"></i> Unit Converter</h3>
+                    <select id="converterType" class="converter-select">
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="area">Area</option>
+                        <option value="volume">Volume</option>
+                        <option value="time">Time</option>
+                        <option value="speed">Speed</option>
+                        <option value="data">Data Storage</option>
+                    </select>
+                </div>
+
+                <div class="converter-body">
+                    <div class="converter-input">
+                        <input type="number" id="fromValue" value="1" step="any">
+                        <select id="fromUnit" class="unit-select">
+                            <option value="meter">Meter (m)</option>
+                            <option value="kilometer">Kilometer (km)</option>
+                            <option value="centimeter">Centimeter (cm)</option>
+                            <option value="millimeter">Millimeter (mm)</option>
+                        </select>
+                    </div>
+
+                    <div class="converter-swap">
+                        <button class="btn-icon" id="swapUnits">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="converter-output">
+                        <input type="number" id="toValue" readonly>
+                        <select id="toUnit" class="unit-select">
+                            <option value="meter">Meter (m)</option>
+                            <option value="kilometer">Kilometer (km)</option>
+                            <option value="centimeter">Centimeter (cm)</option>
+                            <option value="foot">Foot (ft)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="converter-actions">
+                    <button class="btn btn-primary" id="useInCalc">
+                        <i class="fas fa-calculator"></i> Use in Calculator
+                    </button>
+                    <button class="btn btn-secondary" id="swapValues">
+                        <i class="fas fa-sync-alt"></i> Swap Values
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Viewer -->
+        <div class="calculator-buttons" id="historyCalculator">
+            <div class="history-container">
+                <div class="history-header">
+                    <h3><i class="fas fa-history"></i> Calculation History</h3>
+                    <div class="history-stats">
+                        <span class="stat-item">
+                            <i class="fas fa-calculator"></i>
+                            <span id="calcCount">0</span> calculations
+                        </span>
+                        <button class="btn-icon" id="clearHistory">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="history-list" id="historyList">
+                    <div class="empty-history">
+                        <i class="fas fa-clock"></i>
+                        <h4>No Calculations Yet</h4>
+                        <p>Perform some calculations to see them here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-microchip"></i>
+                <span class="status-label">Memory:</span>
+                <span id="memoryStatus">0</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-bolt"></i>
+                <span class="status-label">Power:</span>
+                <span class="status-value">On</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-clock"></i>
+                <span id="currentTime">00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="panel-header">
+            <h2><i class="fas fa-cogs"></i> Advanced Settings</h2>
+            <button class="btn-icon close-panel" id="closePanel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="panel-content">
+            <!-- Theme Settings -->
+            <div class="settings-group">
+                <h3><i class="fas fa-palette"></i> Theme & Appearance</h3>
+                <div class="theme-grid">
+                    <button class="theme-card active" data-theme="light">
+                        <div class="theme-preview light">
+                            <div class="preview-display">123.45</div>
+                            <div class="preview-buttons">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <span class="theme-name">Light</span>
+                    </button>
+                    <button class="theme-card" data-theme="dark">
+                        <div class="theme-preview dark">
+                            <div class="preview-display">123.45</div>
+                            <div class="preview-buttons">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <span class="theme-name">Dark</span>
+                    </button>
+                    <button class="theme-card" data-theme="blue">
+                        <div class="theme-preview blue">
+                            <div class="preview-display">123.45</div>
+                            <div class="preview-buttons">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <span class="theme-name">Ocean</span>
+                    </button>
+                    <button class="theme-card" data-theme="purple">
+                        <div class="theme-preview purple">
+                            <div class="preview-display">123.45</div>
+                            <div class="preview-buttons">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <span class="theme-name">Purple</span>
+                    </button>
+                    <button class="theme-card" data-theme="green">
+                        <div class="theme-preview green">
+                            <div class="preview-display">123.45</div>
+                            <div class="preview-buttons">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <span class="theme-name">Green</span>
+                    </button>
+                    <button class="theme-card" data-theme="orange">
+                        <div class="theme-preview orange">
+                            <div class="preview-display">123.45</div>
+                            <div class="preview-buttons">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <span class="theme-name">Orange</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sound Settings -->
+            <div class="settings-group">
+                <h3><i class="fas fa-volume-up"></i> Sound & Feedback</h3>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="soundEnabled" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Sound Effects</span>
+                        <span class="setting-desc">Click sounds for buttons</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">Volume</label>
+                    <div class="volume-control">
+                        <i class="fas fa-volume-off"></i>
+                        <input type="range" id="volumeLevel" min="0" max="100" value="50">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="hapticFeedback" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Haptic Feedback</span>
+                        <span class="setting-desc">Vibration on mobile</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Display Settings -->
+            <div class="settings-group">
+                <h3><i class="fas fa-desktop"></i> Display Settings</h3>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="thousandsSeparator" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Thousands Separator</span>
+                        <span class="setting-desc">Show commas in large numbers</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">Decimal Places</label>
+                    <select id="decimalPlaces" class="setting-select">
+                        <option value="0">0 (Integer)</option>
+                        <option value="2">2 Places</option>
+                        <option value="4" selected>4 Places</option>
+                        <option value="6">6 Places</option>
+                        <option value="8">8 Places</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="scientificNotation" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Scientific Notation</span>
+                        <span class="setting-desc">For very large/small numbers</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Settings -->
+            <div class="settings-group">
+                <h3><i class="fas fa-calculator"></i> Calculator Behavior</h3>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="chainCalculations" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Chain Calculations</span>
+                        <span class="setting-desc">Continue calculations after equals</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="autoDecimal" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Auto Decimal</span>
+                        <span class="setting-desc">Add decimal to whole numbers</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">Angle Unit</label>
+                    <select id="angleUnit" class="setting-select">
+                        <option value="deg" selected>Degrees</option>
+                        <option value="rad">Radians</option>
+                        <option value="grad">Gradians</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- History Settings -->
+            <div class="settings-group">
+                <h3><i class="fas fa-history"></i> History & Data</h3>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="saveHistory" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Save History</span>
+                        <span class="setting-desc">Keep calculation history</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">History Limit</label>
+                    <select id="historyLimit" class="setting-select">
+                        <option value="10">10 Items</option>
+                        <option value="20" selected>20 Items</option>
+                        <option value="50">50 Items</option>
+                        <option value="100">100 Items</option>
+                        <option value="unlimited">Unlimited</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="autoSync" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                    <div class="setting-info">
+                        <span class="setting-label">Auto Sync</span>
+                        <span class="setting-desc">Sync data across devices</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Settings -->
+            <div class="settings-group">
+                <h3><i class="fas fa-rocket"></i> Advanced</h3>
+                <div class="setting-item">
+                    <label class="setting-label">Button Animation</label>
+                    <select id="buttonAnimation" class="setting-select">
+                        <option value="none">None</option>
+                        <option value="scale" selected>Scale</option>
+                        <option value="ripple">Ripple Effect</option>
+                        <option value="glow">Glow Effect</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">Display Animation</label>
+                    <select id="displayAnimation" class="setting-select">
+                        <option value="none">None</option>
+                        <option value="fade" selected>Fade</option>
+                        <option value="slide">Slide</option>
+                        <option value="typewriter">Typewriter</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label class="setting-label">Performance Mode</label>
+                    <select id="performanceMode" class="setting-select">
+                        <option value="balanced" selected>Balanced</option>
+                        <option value="performance">Performance</option>
+                        <option value="battery">Battery Saver</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Reset Section -->
+            <div class="settings-group">
+                <h3><i class="fas fa-redo"></i> Reset & About</h3>
+                <div class="reset-buttons">
+                    <button class="btn btn-secondary" id="resetSettings">
+                        <i class="fas fa-undo"></i> Reset Settings
+                    </button>
+                    <button class="btn btn-danger" id="clearAllData">
+                        <i class="fas fa-trash"></i> Clear All Data
+                    </button>
+                </div>
+                <div class="about-info">
+                    <p><strong>AdvCalc v3.0</strong></p>
+                    <p>Professional Advanced Calculator with multiple modes and customization options.</p>
+                    <p class="version">Version 3.0.1 • © 2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Overlay -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+
+    <!-- Sound Effects -->
+    <audio id="clickSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="equalsSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="errorSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
